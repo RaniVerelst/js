@@ -7,4 +7,6 @@ router.get("/", todosController.getAll);
 /* /api/v1/todos */
 router.post("/", todosController.create);
 
+router.put("/:id", todosController.update);
+
 module.exports = router;
