@@ -2,6 +2,7 @@
 //hoe een gebruiker mag aanloggen of registreren
 const User = require('../models/User');
 const passport = require('passport');
+const config = require('config');
 
 // use static authenticate method of model in LocalStrategy
 //passpoort is geladen en die mag een lokale strategie gebruiken
@@ -22,7 +23,7 @@ var JwtStrategy = require('passport-jwt').Strategy,
 var opts = {}
 //key uit headers haalen
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = 'MyVerySecretWord';
+opts.secretOrKey = config.get('jwt.secret');
 
 passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
     User.findOne({ _id: jwt_payload.uid }, function (err, user) {
